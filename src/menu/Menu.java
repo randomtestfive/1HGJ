@@ -39,6 +39,7 @@ public abstract class Menu
 	
 	public abstract void init();
 	public abstract void loop();
+	public abstract void renderBackground(Graphics2D g);
 	
 	public void AddMouseListeners(JPanel jp)
 	{

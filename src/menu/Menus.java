@@ -38,6 +38,7 @@ public class Menus
 	public void loop(Graphics2D g2d)
 	{
 		menus.get(menu).loop();
+		menus.get(menu).renderBackground(g2d);
 		menus.get(menu).Render(g2d);
 		if(!menu.equals(menus.get(menu).getTarget()))
 		{

@@ -29,10 +29,7 @@ public class Main2 extends JPanel
 	public void paint(Graphics g)
 	{
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.black);
-		g2d.drawLine(200, 0, 200, 400);
-		g2d.drawLine(100, 0, 100, 400);
-		g2d.drawLine(300, 0, 300, 400);
+
 		ms.loop(g2d);
 		//g2d.drawRect(0, 0, 100, 100);
 		//m.Render(g2d);
@@ -92,6 +89,12 @@ public class Main2 extends JPanel
 			public String getTarget()
 			{
 				return s;
+			}
+
+			@Override
+			public void renderBackground(Graphics2D g) {
+				// TODO Auto-generated method stub
+				
 			}			
 		};
 
@@ -103,7 +106,7 @@ public class Main2 extends JPanel
 			public void init()
 			{
 				s = "main2";
-				b = new Button(200 - ((tl.textureFromName("start").getWidth(null)*3)/2),100,tl.textureFromName("start").getWidth(null)*3,tl.textureFromName("start").getHeight(null)*3, tl.textureFromName("start"),tl.textureFromName("startc"),tl.textureFromName("startm"));
+				b = new Button(200 - ((tl.textureFromName("start").getWidth(null)*3)/2),300,tl.textureFromName("start").getWidth(null)*3,tl.textureFromName("start").getHeight(null)*3, tl.textureFromName("start"),tl.textureFromName("startc"),tl.textureFromName("startm"));
 				c = new Button(150,210,25,25);
 				Add(b);
 				Add(c);
@@ -125,6 +128,15 @@ public class Main2 extends JPanel
 			public String getTarget()
 			{
 				return s;
+			}
+
+			@Override
+			public void renderBackground(Graphics2D g)
+			{
+				g.setColor(Color.black);
+				g.drawLine(200, 0, 200, 400);
+				g.drawLine(100, 0, 100, 400);
+				g.drawLine(300, 0, 300, 400);
 			}			
 		};
 		ms.addMenu("main", m);
@@ -137,6 +149,7 @@ public class Main2 extends JPanel
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
+		frame.setIconImage(tl.textureFromName("arrow"));
 		frame.setVisible(true);
 
 		while(true)
