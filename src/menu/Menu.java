@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class Menu 
+public abstract class Menu 
 {
+	abstract public String getTarget();
+	
 	public Menu()
 	{
 		buttons = new ArrayList<Button>();
@@ -17,6 +19,15 @@ public class Menu
 	{
 		buttons.add(b);
 	}
+	
+	public void reset()
+	{
+		for (Button b : buttons)
+		{
+			b.go = false;
+			b.clicked = false;
+		}
+	}
 
 	public void Render(Graphics2D g)
 	{
@@ -26,11 +37,15 @@ public class Menu
 		}
 	}
 	
+	public abstract void init();
+	public abstract void loop();
+	
 	public void AddMouseListeners(JPanel jp)
 	{
 		for (Button b : buttons)
 		{
 			jp.addMouseListener(b);
+			jp.addMouseMotionListener(b);
 		}
 	}
 }

@@ -188,13 +188,13 @@ public class Game extends SimulationFrame {
 		world.addBody(plat2);
 		
 		SimulationBody owalll = new SimulationBody();
-		owalll.addFixture(Geometry.createRectangle(0.2, 14));
+		owalll.addFixture(Geometry.createRectangle(0.2, 40));
 		owalll.translate(-9, 0);
 		owalll.setMass(MassType.INFINITE);
 		world.addBody(owalll);
 		
 		SimulationBody owallr = new SimulationBody();
-		owallr.addFixture(Geometry.createRectangle(0.2, 14));
+		owallr.addFixture(Geometry.createRectangle(0.2, 40));
 		owallr.translate(9, 0);
 		owallr.setMass(MassType.INFINITE);
 		world.addBody(owallr);

@@ -2,23 +2,58 @@ package menu;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class Button implements MouseListener
+public class Button implements MouseListener, MouseMotionListener
 {
-	String texturename;
+	//String texturename;
+	Image uc;
+	Image c;
+	Image m;
 	int x, y, x2, y2;
 	boolean clicked = false;
 	boolean go = false;
+	boolean mouse = false;
 	
-	Button(int xloc, int yloc, int xloc2, int yloc2, String tn)
+	Button(int xloc, int yloc, int xloc2, int yloc2)
 	{
 		x = xloc;
 		y = yloc;
 		x2 = xloc2;
 		y2 = yloc2;
-		texturename = tn;
+	}
+	
+	Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick)
+	{
+		x = xloc;
+		y = yloc;
+		x2 = xloc2;
+		y2 = yloc2;
+		uc = unclick;
+	}
+	
+	Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick, Image click)
+	{
+		x = xloc;
+		y = yloc;
+		x2 = xloc2;
+		y2 = yloc2;
+		uc = unclick;
+		c = click;
+	}
+	
+	Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick, Image click, Image mouse)
+	{
+		x = xloc;
+		y = yloc;
+		x2 = xloc2;
+		y2 = yloc2;
+		uc = unclick;
+		c = click;
+		m = mouse;
 	}
 	
 	void Render(Graphics2D g)
@@ -29,14 +64,49 @@ public class Button implements MouseListener
 	
 	void Render(Graphics2D g, boolean click)
 	{
-		
-		if(click)
+		if(uc == null)
 		{
-			g.setColor(Color.RED);
-			g.fillRect(x, y, x2, y2);
+			if(click)
+			{
+				g.setColor(Color.RED);
+				g.fillRect(x, y, x2, y2);
+			}
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, x2, y2);
 		}
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, x2, y2);
+		else if(c == null)
+		{
+			g.drawImage(uc, x, y, x2, y2, null);
+		}
+		else if(c != null && uc != null && m == null)
+		{
+			if(click)
+			{
+				g.drawImage(c, x, y, x2, y2, null);
+			}
+			else
+			{
+				g.drawImage(uc, x, y, x2, y2, null);
+			}
+		}
+		else if(c != null && uc != null && m != null)
+		{
+			if(click)
+			{
+				g.drawImage(c, x, y, x2, y2, null);
+			}
+			else
+			{
+				if(mouse)
+				{
+					g.drawImage(m, x, y, x2, y2, null);
+				}
+				else
+				{
+					g.drawImage(uc, x, y, x2, y2, null);
+				}
+			}
+		}
 	}
 	
 	public boolean getClicked()
@@ -81,7 +151,27 @@ public class Button implements MouseListener
 	{
 		// TODO Auto-generated method stub
 		clicked = false;
+		if(arg0.getX() > x && arg0.getX() < x + x2 && arg0.getY() > y && arg0.getY() < y + y2)
 		go = true;
 		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e)
+	{
+		if(e.getX() > x && e.getX() < x + x2 && e.getY() > y && e.getY() < y + y2)
+		{
+			mouse = true;
+		}
+		else
+		{
+			mouse = false;
+		}
 	}
 }
