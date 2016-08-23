@@ -63,13 +63,11 @@ public class Main2 extends JPanel
 		m = new Menu()
 		{
 			Button b;
-			Button c;
 			@Override
 			public void init()
 			{
 				s = "main";
 				b = new Button(200 - ((tl.textureFromName("start").getWidth(null)*3)/2),100,tl.textureFromName("start").getWidth(null)*3,tl.textureFromName("start").getHeight(null)*3, tl.textureFromName("start"),tl.textureFromName("startc"),tl.textureFromName("startm"));
-				c = new Button(150,210,25,25);
 				Add(b);
 				//Add(c);
 			}

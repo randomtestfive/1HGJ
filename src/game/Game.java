@@ -2,28 +2,15 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.util.List;
 
-import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.dynamics.contact.ContactAdapter;
-import org.dyn4j.dynamics.contact.ContactListener;
 import org.dyn4j.dynamics.contact.ContactPoint;
-import org.dyn4j.dynamics.contact.PersistedContactPoint;
-import org.dyn4j.dynamics.contact.SolvedContactPoint;
-import org.dyn4j.dynamics.joint.MotorJoint;
-import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.Mass;
 import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
 
@@ -99,7 +86,7 @@ public class Game extends SimulationFrame {
 	public static TextureLoader tl;
 	
 	/** The controller body */
-	private SimulationBody controller;
+	//private SimulationBody controller;
 	static Listeners l = new Listeners();
 	Listeners.Keys k = l.new Keys();
 	public static Listeners.Mouse m = l.new Mouse();
@@ -290,11 +277,11 @@ public class Game extends SimulationFrame {
 	 * @param point the screen space point
 	 * @return {@link Vector2}
 	 */
-	private Vector2 toWorldCoordinates(Point point) {
-		double x =  (point.getX() - this.canvas.getWidth() / 2.0) / this.scale;
-		double y = -(point.getY() - this.canvas.getHeight() / 2.0) / this.scale;
-		return new Vector2(x, y);
-	}
+//	private Vector2 toWorldCoordinates(Point point) {
+//		double x =  (point.getX() - this.canvas.getWidth() / 2.0) / this.scale;
+//		double y = -(point.getY() - this.canvas.getHeight() / 2.0) / this.scale;
+//		return new Vector2(x, y);
+//	}
 	
 	public static void addTextures()
 	{

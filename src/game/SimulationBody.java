@@ -28,7 +28,6 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
@@ -84,7 +83,6 @@ public class SimulationBody extends Body {
 	 */
 	public void render(Graphics2D g, double scale, Color color) {
 		// point radius
-		final int pr = 4;
 		
 		// save the original transform
 		AffineTransform ot = g.getTransform();

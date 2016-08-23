@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
 
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.geometry.Circle;
@@ -31,7 +29,6 @@ public class Entity extends SimulationBody
 		if(visible)
 		{
 			// point radius
-			final int pr = 4;
 			
 			// save the original transform
 			AffineTransform ot = g.getTransform();
