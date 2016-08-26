@@ -288,6 +288,8 @@ public class Game extends SimulationFrame {
 		tl.addMap("/textures/guy.gif", "player");
 		tl.addMap("/textures/donut.png", "fuel");
 		tl.addMap("/textures/start.png", "start");
+		tl.addMap("/textures/startclick.png", "startc");
+		tl.addMap("/textures/startmouse.png", "startm");
 		tl.addMap("/textures/arrow.png", "arrow");
 		tl.loadTextures();
 	}

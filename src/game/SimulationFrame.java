@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -14,6 +15,10 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import menu.Button;
+import menu.Menu;
+import menu.Menus;
 
 import org.dyn4j.dynamics.World;
 
@@ -53,6 +58,8 @@ public abstract class SimulationFrame extends JFrame {
 	
 	public static boolean simulate = false;
 	
+	public Menus ms;
+	
 	/**
 	 * Constructor.
 	 * <p>
@@ -62,6 +69,92 @@ public abstract class SimulationFrame extends JFrame {
 	 */
 	public SimulationFrame(String name, double scale) {
 		super(name);
+		ms = new Menus();
+		ms = new Menus();
+		Menu m = new Menu()
+		{
+			Button b;
+			@Override
+			public void init()
+			{
+				s = "main";
+				b = new Button(0,0,Game.tl.textureFromName("start").getWidth(null)*3,Game.tl.textureFromName("start").getHeight(null)*3, Game.tl.textureFromName("start"),Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
+				Add(b);
+				//Add(c);
+			}
+
+			@Override
+			public void loop()
+			{
+				if(b.getClicked())
+				{
+					System.out.println("ye");
+					s = "main2";
+				}
+			}
+			String s = "main";
+
+			@Override
+			public String getTarget()
+			{
+				return s;
+			}
+
+			@Override
+			public void renderBackground(Graphics2D g) {
+				// TODO Auto-generated method stub
+				
+			}			
+		};
+
+		Menu m2 = new Menu()
+		{
+			Button b;
+			Button c;
+			@Override
+			public void init()
+			{
+				s = "main2";
+				b = new Button(200 - ((Game.tl.textureFromName("start").getWidth(null)*3)/2),300,Game.tl.textureFromName("start").getWidth(null)*3,Game.tl.textureFromName("start").getHeight(null)*3, Game.tl.textureFromName("start"),Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
+				c = new Button(150,210,25,25);
+				Add(b);
+				Add(c);
+			}
+
+			@Override
+			public void loop()
+			{
+				//System.out.println("ye2");
+				if(b.getClicked())
+				{
+					s = "main";
+					System.out.println("ye2");
+				}
+				if(c.getClicked())
+				{
+					simulate = true;
+				}
+			}
+			String s = "main2";
+
+			@Override
+			public String getTarget()
+			{
+				return s;
+			}
+
+			@Override
+			public void renderBackground(Graphics2D g)
+			{
+				g.setColor(Color.black);
+				g.drawLine(200, 0, 200, 400);
+				g.drawLine(100, 0, 100, 400);
+				g.drawLine(300, 0, 300, 400);
+			}			
+		};
+		ms.addMenu("main", m);
+		ms.addMenu("main2", m2);
+		ms.init();
 		
 		// set the scale
 		this.scale = scale;
@@ -93,7 +186,7 @@ public abstract class SimulationFrame extends JFrame {
 		this.canvas.setPreferredSize(size);
 		this.canvas.setMinimumSize(size);
 		this.canvas.setMaximumSize(size);
-		
+		ms.addMouseListeners(this.canvas);
 		// add the canvas to the JFrame
 		this.add(this.canvas);
 		
@@ -160,13 +253,13 @@ public abstract class SimulationFrame extends JFrame {
 		
 		// by default, set (0, 0) to be the center of the screen with the positive x axis
 		// pointing right and the positive y axis pointing up
-		this.transform(g);
+		
 		
 		// reset the view
 		this.clear(g);
-		if(true)
+		if(simulate)
 		{
-			
+			this.transform(g);
 			// get the current time
 	        long time = System.nanoTime();
 	        // get the elapsed time from the last iteration
@@ -184,16 +277,10 @@ public abstract class SimulationFrame extends JFrame {
 		        this.update(g, elapsedTime);
 			}
 		}
-//		else
-//		{
-//			g.scale(1, -1);
-//			g.setColor(Color.blue);
-//			g.fillRect(0 - canvas.getWidth() / 2, 0 - canvas.getHeight() / 2, canvas.getWidth(), canvas.getHeight());
-//			g.setColor(Color.white);
-//			g.drawString((Game.m.x + ", " + Game.m.y), -400, -290);
-//			Image img = Game.tl.textureFromName("start");
-//			g.drawImage(img,0 - (img.getWidth(null) * 5 / 2), 0 - (img.getHeight(null) * 5 / 2), img.getWidth(null) * 5, img.getHeight(null) * 5, null);
-//		}
+		else
+		{
+			ms.loop(g);
+		}
 		
 		// dispose of the graphics object
 		g.dispose();

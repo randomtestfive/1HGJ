@@ -1,5 +1,7 @@
 package menu;
 
+import java.awt.Canvas;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +27,7 @@ public class Menus
 	{
 		menus.get(menu).init();
 	}
-	JPanel hold;
+	Component hold;
 	public void addMouseListeners(JPanel jp)
 	{
 		hold = jp;
@@ -46,6 +48,15 @@ public class Menus
 			menus.get(menu).reset();
 			menus.get(menu).init();
 			menus.get(menu).AddMouseListeners(hold);
+		}
+	}
+
+	public void addMouseListeners(Canvas canvas)
+	{
+		hold = canvas;
+		for (Entry<String, Menu> m : menus.entrySet())
+		{
+			m.getValue().AddMouseListeners(canvas);
 		}
 	}
 }

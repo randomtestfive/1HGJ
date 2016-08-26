@@ -1,9 +1,9 @@
 package menu;
 
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
 
 public abstract class Menu 
 {
@@ -41,7 +41,7 @@ public abstract class Menu
 	public abstract void loop();
 	public abstract void renderBackground(Graphics2D g);
 	
-	public void AddMouseListeners(JPanel jp)
+	public void AddMouseListeners(Component jp)
 	{
 		for (Button b : buttons)
 		{

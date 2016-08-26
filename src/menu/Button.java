@@ -18,7 +18,7 @@ public class Button implements MouseListener, MouseMotionListener
 	boolean go = false;
 	boolean mouse = false;
 	
-	Button(int xloc, int yloc, int xloc2, int yloc2)
+	public Button(int xloc, int yloc, int xloc2, int yloc2)
 	{
 		x = xloc;
 		y = yloc;
@@ -26,7 +26,7 @@ public class Button implements MouseListener, MouseMotionListener
 		y2 = yloc2;
 	}
 	
-	Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick)
+	public Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick)
 	{
 		x = xloc;
 		y = yloc;
@@ -35,7 +35,7 @@ public class Button implements MouseListener, MouseMotionListener
 		uc = unclick;
 	}
 	
-	Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick, Image click)
+	public Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick, Image click)
 	{
 		x = xloc;
 		y = yloc;
@@ -45,7 +45,7 @@ public class Button implements MouseListener, MouseMotionListener
 		c = click;
 	}
 	
-	Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick, Image click, Image mouse)
+	public Button(int xloc, int yloc, int xloc2, int yloc2, Image unclick, Image click, Image mouse)
 	{
 		x = xloc;
 		y = yloc;
@@ -157,8 +157,13 @@ public class Button implements MouseListener, MouseMotionListener
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseDragged(MouseEvent e)
+	{
+		if(!(e.getX() > x && e.getX() < x + x2 && e.getY() > y && e.getY() < y + y2))
+		{
+			mouse = false;
+			clicked = false;
+		}
 		
 	}
 
