@@ -60,17 +60,8 @@ public abstract class SimulationFrame extends JFrame {
 	
 	public Menus ms;
 	
-	/**
-	 * Constructor.
-	 * <p>
-	 * By default creates a 800x600 canvas.
-	 * @param name the frame name
-	 * @param scale the pixels per meter scale factor
-	 */
-	public SimulationFrame(String name, double scale) {
-		super(name);
-		ms = new Menus();
-		ms = new Menus();
+	public void AddMenus()
+	{
 		Menu m = new Menu()
 		{
 			Button b;
@@ -78,7 +69,8 @@ public abstract class SimulationFrame extends JFrame {
 			public void init()
 			{
 				s = "main";
-				b = new Button(0,0,Game.tl.textureFromName("start").getWidth(null)*3,Game.tl.textureFromName("start").getHeight(null)*3, Game.tl.textureFromName("start"),Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
+				Image button = Game.tl.textureFromName("start");
+				b = new Button((canvas.getWidth()/2) - ((button.getWidth(null)*3)/2),200,button.getWidth(null)*3,button.getHeight(null)*3, button,Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
 				Add(b);
 				//Add(c);
 			}
@@ -88,8 +80,9 @@ public abstract class SimulationFrame extends JFrame {
 			{
 				if(b.getClicked())
 				{
-					System.out.println("ye");
-					s = "main2";
+					//System.out.println("ye");
+					simulate = true;
+					s = "main";
 				}
 			}
 			String s = "main";
@@ -104,57 +97,107 @@ public abstract class SimulationFrame extends JFrame {
 			public void renderBackground(Graphics2D g) {
 				// TODO Auto-generated method stub
 				
-			}			
-		};
-
-		Menu m2 = new Menu()
-		{
-			Button b;
-			Button c;
-			@Override
-			public void init()
-			{
-				s = "main2";
-				b = new Button(200 - ((Game.tl.textureFromName("start").getWidth(null)*3)/2),300,Game.tl.textureFromName("start").getWidth(null)*3,Game.tl.textureFromName("start").getHeight(null)*3, Game.tl.textureFromName("start"),Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
-				c = new Button(150,210,25,25);
-				Add(b);
-				Add(c);
 			}
-
-			@Override
-			public void loop()
-			{
-				//System.out.println("ye2");
-				if(b.getClicked())
-				{
-					s = "main";
-					System.out.println("ye2");
-				}
-				if(c.getClicked())
-				{
-					simulate = true;
-				}
-			}
-			String s = "main2";
-
-			@Override
-			public String getTarget()
-			{
-				return s;
-			}
-
-			@Override
-			public void renderBackground(Graphics2D g)
-			{
-				g.setColor(Color.black);
-				g.drawLine(200, 0, 200, 400);
-				g.drawLine(100, 0, 100, 400);
-				g.drawLine(300, 0, 300, 400);
-			}			
 		};
 		ms.addMenu("main", m);
-		ms.addMenu("main2", m2);
-		ms.init();
+	}
+	
+	/**
+	 * Constructor.
+	 * <p>
+	 * By default creates a 800x600 canvas.
+	 * @param name the frame name
+	 * @param scale the pixels per meter scale factor
+	 */
+	public SimulationFrame(String name, double scale) {
+		super(name);
+		ms = new Menus();
+
+//		Menu m = new Menu()
+//		{
+//			Button b;
+//			@Override
+//			public void init()
+//			{
+//				s = "main";
+//				b = new Button(0,0,Game.tl.textureFromName("start").getWidth(null)*3,Game.tl.textureFromName("start").getHeight(null)*3, Game.tl.textureFromName("start"),Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
+//				Add(b);
+//				//Add(c);
+//			}
+//
+//			@Override
+//			public void loop()
+//			{
+//				if(b.getClicked())
+//				{
+//					System.out.println("ye");
+//					s = "main2";
+//				}
+//			}
+//			String s = "main";
+//
+//			@Override
+//			public String getTarget()
+//			{
+//				return s;
+//			}
+//
+//			@Override
+//			public void renderBackground(Graphics2D g) {
+//				// TODO Auto-generated method stub
+//				
+//			}			
+//		};
+//
+//		Menu m2 = new Menu()
+//		{
+//			Button b;
+//			Button c;
+//			@Override
+//			public void init()
+//			{
+//				s = "main2";
+//				b = new Button(200 - ((Game.tl.textureFromName("start").getWidth(null)*3)/2),300,Game.tl.textureFromName("start").getWidth(null)*3,Game.tl.textureFromName("start").getHeight(null)*3, Game.tl.textureFromName("start"),Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
+//				c = new Button(150,210,25,25);
+//				Add(b);
+//				Add(c);
+//			}
+//
+//			@Override
+//			public void loop()
+//			{
+//				//System.out.println("ye2");
+//				if(b.getClicked())
+//				{
+//					s = "main";
+//					System.out.println("ye2");
+//				}
+//				if(c.getClicked())
+//				{
+//					simulate = true;
+//				}
+//			}
+//			String s = "main2";
+//
+//			@Override
+//			public String getTarget()
+//			{
+//				return s;
+//			}
+//
+//			@Override
+//			public void renderBackground(Graphics2D g)
+//			{
+//				g.setColor(Color.black);
+//				g.drawLine(200, 0, 200, 400);
+//				g.drawLine(100, 0, 100, 400);
+//				g.drawLine(300, 0, 300, 400);
+//			}			
+//		};
+		
+		//ms.addMenu("main", m);
+		//ms.addMenu("main2", m2);
+		
 		
 		// set the scale
 		this.scale = scale;
@@ -186,7 +229,7 @@ public abstract class SimulationFrame extends JFrame {
 		this.canvas.setPreferredSize(size);
 		this.canvas.setMinimumSize(size);
 		this.canvas.setMaximumSize(size);
-		ms.addMouseListeners(this.canvas);
+
 		// add the canvas to the JFrame
 		this.add(this.canvas);
 		
@@ -196,7 +239,9 @@ public abstract class SimulationFrame extends JFrame {
 		
 		// size everything
 		this.pack();
-		
+		AddMenus();
+		ms.init();
+		ms.addMouseListeners(this.canvas);
 		// setup the world
 		this.initializeWorld();
 	}
@@ -249,16 +294,18 @@ public abstract class SimulationFrame extends JFrame {
 	 */
 	private void gameLoop() {
 		// get the graphics object to render to
-		Graphics2D g = (Graphics2D)this.canvas.getBufferStrategy().getDrawGraphics();
+		
 		
 		// by default, set (0, 0) to be the center of the screen with the positive x axis
 		// pointing right and the positive y axis pointing up
 		
 		
 		// reset the view
-		this.clear(g);
+		
 		if(simulate)
 		{
+			Graphics2D g = (Graphics2D)this.canvas.getBufferStrategy().getDrawGraphics();
+			this.clear(g);
 			this.transform(g);
 			// get the current time
 	        long time = System.nanoTime();
@@ -276,14 +323,19 @@ public abstract class SimulationFrame extends JFrame {
 		        // update the World
 		        this.update(g, elapsedTime);
 			}
+			g.dispose();
 		}
 		else
 		{
+			Graphics2D g = (Graphics2D)this.canvas.getBufferStrategy().getDrawGraphics();
+			g.setColor(Color.white);
+			g.fillRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
 			ms.loop(g);
+			g.dispose();
 		}
 		
 		// dispose of the graphics object
-		g.dispose();
+		
 		
 		// blit/flip the buffer
 		BufferStrategy strategy = this.canvas.getBufferStrategy();
