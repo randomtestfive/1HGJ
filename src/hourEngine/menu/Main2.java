@@ -1,4 +1,4 @@
-package menu;
+package hourEngine.menu;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import game.TextureLoader;
+import hourEngine.core.TextureLoader;
 
 @SuppressWarnings("serial")
 public class Main2 extends JPanel

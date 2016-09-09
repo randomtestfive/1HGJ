@@ -1,4 +1,4 @@
-package game;
+package hourEngine.core;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -13,6 +13,8 @@ import org.dyn4j.geometry.Mass;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
+
+import hourEngine.prefabs.Wall;
 
 public class Game extends SimulationFrame {
 	/** The serial version id */
@@ -150,40 +152,27 @@ public class Game extends SimulationFrame {
 	    fuel.setAutoSleepingEnabled(false);
 	    world.addBody(fuel);
 	    
-		SimulationBody wallb = new SimulationBody(Color.green);
-		wallb.addFixture(Geometry.createRectangle(30, 0.2));
-		wallb.translate(0, -6.6);
-		wallb.setMass(MassType.INFINITE);
-		world.addBody(wallb);
+//		SimulationBody wallb = new SimulationBody(Color.green);
+//		wallb.addFixture(Geometry.createRectangle(30, 0.2));
+//		wallb.translate(0, -6.6);
+//		wallb.setMass(MassType.INFINITE);
+//		world.addBody(wallb);
+	    Wall wallb = new Wall(0, -6.6, 30, 0.2, Color.green);
+	    world.addBody(wallb);
 		
-		SimulationBody wallr = new SimulationBody();
-		wallr.addFixture(Geometry.createRectangle(0.2, 10));
-		wallr.translate(5, 0);
-		wallr.setMass(MassType.INFINITE);
+		Wall wallr = new Wall(5, 0, 0.2, 10);
 		world.addBody(wallr);
 		
-		SimulationBody plat = new SimulationBody();
-		plat.addFixture(Geometry.createRectangle(5, 0.2));
-		plat.translate(-3, -3);
-		plat.setMass(MassType.INFINITE);
+		Wall plat = new Wall(-3, -3, 5, 0.2);
 		world.addBody(plat);
 		
-		SimulationBody plat2 = new SimulationBody();
-		plat2.addFixture(Geometry.createRectangle(2, 0.2));
-		plat2.translate(4, 2);
-		plat2.setMass(MassType.INFINITE);
+		Wall plat2 = new Wall(4, 2, 2, 0.2);
 		world.addBody(plat2);
 		
-		SimulationBody owalll = new SimulationBody();
-		owalll.addFixture(Geometry.createRectangle(0.2, 40));
-		owalll.translate(-9, 0);
-		owalll.setMass(MassType.INFINITE);
+		Wall owalll = new Wall(-9, 0, 0.2, 40);
 		world.addBody(owalll);
 		
-		SimulationBody owallr = new SimulationBody();
-		owallr.addFixture(Geometry.createRectangle(0.2, 40));
-		owallr.translate(9, 0);
-		owallr.setMass(MassType.INFINITE);
+		Wall owallr = new Wall(9, 0, 0.2, 40);
 		world.addBody(owallr);
 	}
 	
@@ -237,7 +226,8 @@ public class Game extends SimulationFrame {
 		{
 			if(Math.abs(body2.getLinearVelocity().x) > 0.005)
 			{
-				body2.setLinearVelocity(body2.getLinearVelocity().x/1.1,body2.getLinearVelocity().y);
+				System.out.println(elapsedTime * 1.1 * 350);
+				body2.setLinearVelocity((body2.getLinearVelocity().x/(1.1*elapsedTime*350)),body2.getLinearVelocity().y);
 			}
 			else
 			{
@@ -256,16 +246,19 @@ public class Game extends SimulationFrame {
 		
 		final int w = this.canvas.getWidth();
 		final int h = this.canvas.getHeight();
+		
 		g.setColor(new Color(135, 206, 250));
 		g.fillRect(-w / 2, -h / 2, w, h);
-		g.setColor(Color.BLACK);
+		
+
+		g.translate(-camera, 0);
+		super.render(g, elapsedTime);
+		g.translate(camera, 0);
 		g.scale(1, -1);
+		g.setColor(Color.BLACK);
 		g.drawString("Score: " + score, -400, -290);
 		g.drawString("Use SPACE to move!", -400, -275);
 		g.scale(1,  -1);
-		//g.translate(-camera, 0);
-		super.render(g, elapsedTime);
-		
 		g.rotate(Math.toRadians(-k.count*90), 0, 254);
 		g.drawImage(tl.textureFromName("arrow"), -16, 270, 32, -32, null);
 		

@@ -1,10 +1,9 @@
-package game;
+package hourEngine.core;
 
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -16,11 +15,11 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import menu.Button;
-import menu.Menu;
-import menu.Menus;
-
 import org.dyn4j.dynamics.World;
+
+import hourEngine.menu.Button;
+import hourEngine.menu.Menu;
+import hourEngine.menu.Menus;
 
 /**
  * A simple scene of a bowling ball bouncing on the floor.
@@ -67,9 +66,9 @@ public abstract class SimulationFrame extends JFrame {
 	 * @param name the frame name
 	 * @param scale the pixels per meter scale factor
 	 */
-	public SimulationFrame(String name, double scale) {
+	public SimulationFrame(String name, double scale)
+	{
 		super(name);
-		ms = new Menus();
 		ms = new Menus();
 		Menu m = new Menu()
 		{
@@ -115,7 +114,7 @@ public abstract class SimulationFrame extends JFrame {
 			public void init()
 			{
 				s = "main2";
-				b = new Button(200 - ((Game.tl.textureFromName("start").getWidth(null)*3)/2),300,Game.tl.textureFromName("start").getWidth(null)*3,Game.tl.textureFromName("start").getHeight(null)*3, Game.tl.textureFromName("start"),Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
+				b = new Button(canvas.getWidth()/2 - ((Game.tl.textureFromName("start").getWidth(null)*3)/2),300,Game.tl.textureFromName("start").getWidth(null)*3,Game.tl.textureFromName("start").getHeight(null)*3, Game.tl.textureFromName("start"),Game.tl.textureFromName("startc"),Game.tl.textureFromName("startm"));
 				c = new Button(150,210,25,25);
 				Add(b);
 				Add(c);
@@ -231,7 +230,7 @@ public abstract class SimulationFrame extends JFrame {
 					// Thread.sleep(long) here to give the
 					// CPU some breathing room
 					try {
-						Thread.sleep(5);
+						Thread.sleep(1);
 					} catch (InterruptedException e) {}
 				}
 			}
@@ -279,6 +278,8 @@ public abstract class SimulationFrame extends JFrame {
 		}
 		else
 		{
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			ms.loop(g);
 		}
 		

@@ -1,4 +1,4 @@
-package menu;
+package hourEngine.menu;
 
 import java.awt.Component;
 import java.awt.Graphics2D;

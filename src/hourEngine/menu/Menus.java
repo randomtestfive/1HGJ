@@ -1,4 +1,4 @@
-package menu;
+package hourEngine.menu;
 
 import java.awt.Canvas;
 import java.awt.Component;
