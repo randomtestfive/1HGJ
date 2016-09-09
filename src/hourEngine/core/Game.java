@@ -227,7 +227,7 @@ public class Game extends SimulationFrame {
 			if(Math.abs(body2.getLinearVelocity().x) > 0.005)
 			{
 				System.out.println(elapsedTime * 1.1 * 350);
-				body2.setLinearVelocity((body2.getLinearVelocity().x/(1.1*elapsedTime*350)),body2.getLinearVelocity().y);
+				body2.setLinearVelocity((body2.getLinearVelocity().x/(1.1*elapsedTime*400)),body2.getLinearVelocity().y);
 			}
 			else
 			{
