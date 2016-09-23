@@ -21,6 +21,7 @@ public class Slant extends SimulationBody
 	{
 		b = bi;
 		addFixture(Geometry.createRightTriangle(1, 1));
+		translate(-0.17, -0.17);
 		setMass(MassType.INFINITE);
 	}
 	
@@ -44,21 +45,31 @@ public class Slant extends SimulationBody
 	@Override
 	protected void renderFixture(Graphics2D g, double scale, BodyFixture fixture, Color color)
 	{
+		super.renderFixture(g, scale, fixture, color);
 		AffineTransform oTransform = g.getTransform();
 		if (b != null)
 		{
 			Convex convex = fixture.getShape();
+			
 			// check the shape type
 			if (convex instanceof Triangle)
 			{
 				Triangle r = (Triangle)convex;
+				//System.out.println(r.getRadius());
 				Vector2 c = r.getCenter();
-				g.drawImage(b, 
-						(int)Math.ceil((this.getTransform().getTranslationX()+0.75) * scale),
-						(int)Math.ceil((this.getTransform().getTranslationY()+0.55) * scale),
-						(int)Math.ceil(-1 * scale),
-						(int)Math.ceil(-1 * scale),
-						null);
+				for(Vector2 v2 : r.getVertices())
+				{
+					System.out.println(v2.x + " " + v2.y);
+				}
+				g.setColor(Color.red);
+				g.fillOval((int)(c.x * scale), (int)(c.y * scale), (int)(r.getRadius() * scale), (int)(r.getRadius() * scale));
+//				g.drawImage(b, 
+//						(int)Math.ceil((this.getTransform().getTranslationX() ) * scale),
+//						(int)Math.ceil((this.getTransform().getTranslationY() ) * scale),
+//						(int)Math.ceil(-1 * scale),
+//						(int)Math.ceil(-1 * scale),
+//						null);
+				
 			}
 		}
 		g.setTransform(oTransform);

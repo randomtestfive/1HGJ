@@ -21,6 +21,12 @@ public class Square extends SimulationBody
 	{
 		b = bi;
 		addFixture(Geometry.createRectangle(1,1));
+		for (int i = 1; i < 10; i++)
+		{
+			Rectangle f = Geometry.createRectangle(1, 1);
+			f.translate(i*0.99,0);
+			addFixture(f);
+		}
 		setMass(MassType.INFINITE);
 	}
 	
@@ -64,5 +70,6 @@ public class Square extends SimulationBody
 			}
 		}
 		g.setTransform(oTransform);
+		//super.renderFixture(g, scale, fixture, color);
 	}
 }

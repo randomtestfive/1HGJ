@@ -13,13 +13,13 @@ public class Listeners
 	{
 		public int count = 0;
 		boolean on = false;
-		public int getCount()
+		boolean left = false;
+		boolean up = false;
+		boolean right = false;
+		
+		public boolean getLeft()
 		{
-			if(on)
-			{
-				return count;
-			}
-			return 5;
+			return left;
 		}
 
 		@Override
@@ -27,24 +27,39 @@ public class Listeners
 		{
 			if(arg0.getKeyCode() == KeyEvent.VK_W)
 			{
+				up = true;
 				on = true;
-				count = 0;
 			}
 			if(arg0.getKeyCode() == KeyEvent.VK_D)
 			{
+				right = true;
 				on = true;
-				count = 1;
 			}
 			if(arg0.getKeyCode() == KeyEvent.VK_A)
 			{
+				left = true;
 				on = true;
-				count = 3;
 			}
 		}
 
 		@Override
 		public void keyReleased(KeyEvent arg0)
 		{
+			if(arg0.getKeyCode() == KeyEvent.VK_W)
+			{
+				up = false;
+				count = 0;
+			}
+			if(arg0.getKeyCode() == KeyEvent.VK_D)
+			{
+				right = false;
+				count = 1;
+			}
+			if(arg0.getKeyCode() == KeyEvent.VK_A)
+			{
+				left = false;
+				count = 3;
+			}
 			on = false;
 		}
 

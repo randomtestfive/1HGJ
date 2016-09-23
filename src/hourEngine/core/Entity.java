@@ -102,6 +102,8 @@ public class Entity extends SimulationBody
 				{
 					g.drawImage(image, x, y, w, w, null);
 				}
+				g.setColor(Color.red);
+				g.drawOval(x, y, w, w);
 			}
 		} else {
 			// default rendering

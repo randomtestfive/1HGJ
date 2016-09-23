@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.dyn4j.dynamics.BodyFixture;
+import org.dyn4j.dynamics.Force;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.dynamics.contact.ContactAdapter;
 import org.dyn4j.dynamics.contact.ContactPoint;
@@ -120,7 +121,7 @@ public class Game extends SimulationFrame {
 	protected void initializeWorld()
 	{
 		this.setLocationRelativeTo(null);
-	    this.world.setGravity(World.EARTH_GRAVITY);
+	    this.world.setGravity(new Vector2(0, -5));
 	    if(c == null)
 	    {
 	    	System.out.println("frwejga");
@@ -134,7 +135,7 @@ public class Game extends SimulationFrame {
 	    f.setRestitution(0);
 	    body2.setTextureName("player");
 	    body2.addFixture(f);
-	    body2.translate(3, 0);
+	    body2.translate(3, 2);
 	    body2.setLinearVelocity(new Vector2(0.0, 0.0));
 	    body2.setAngularVelocity(0.0);
 	    body2.setMass(MassType.FIXED_ANGULAR_VELOCITY);
@@ -156,8 +157,13 @@ public class Game extends SimulationFrame {
 	    fuel.setAutoSleepingEnabled(false);
 	    world.addBody(fuel);
 	    //Square test = new Square(lev.tilesets.get(1).tiles.get(0));
+	    Square sq = new Square(lev.tilesets.get(1).tiles.get(0));
 	    Slant test2 = new Slant(lev.tilesets.get(1).tiles.get(1));
+	    sq.translate(-5, 0);
+	    test2.translate(0,-2);
 	    world.addBody(test2);
+	    world.addBody(sq);
+	    //world.addBody(new Square(lev.tilesets.get(1).tiles.get(0)));
 //		SimulationBody wallb = new SimulationBody(Color.green);
 //		wallb.addFixture(Geometry.createRectangle(30, 0.2));
 //		wallb.translate(0, -6.6);
@@ -178,8 +184,8 @@ public class Game extends SimulationFrame {
 		Wall owalll = new Wall(-9, 0, 0.2, 40);
 		world.addBody(owalll);
 		
-		Wall owallr = new Wall(9, 0, 0.2, 40);
-		world.addBody(owallr);
+//		Wall owallr = new Wall(9, 0, 0.2, 40);
+//		world.addBody(owallr);
 	}
 	
 	@Override
@@ -216,19 +222,24 @@ public class Game extends SimulationFrame {
 				grounded = true;
 			}
 		}
-		if(grounded && (k.getCount() == 0 && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)))
+		if(grounded && (k.up && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)))
 		{
-			body2.setLinearVelocity(body2.getLinearVelocity().x, 10);
+			body2.setLinearVelocity(new Vector2(body2.getLinearVelocity().x, 5));
 		}
-		if(k.getCount() == 3 && body2.getChangeInPosition().x > -0.2)
+		else if(k.up)
 		{
-			body2.applyForce(new Vector2(-15, 0));
+			body2.applyForce(new Force(new Vector2(0, 0.3)));
 		}
-		if(k.getCount() == 1  && body2.getChangeInPosition().x < 0.2)
+		if(k.left && body2.getChangeInPosition().x > -0.2)
 		{
-			body2.applyForce(new Vector2(15, 0));
+			body2.setLinearVelocity(new Vector2(-5, body2.getLinearVelocity().y));
 		}
-		if(!(k.getCount() == 1) && !(k.getCount() == 3))
+		if(k.right && body2.getChangeInPosition().x < 0.2)
+		{
+			body2.setLinearVelocity(new Vector2(5, body2.getLinearVelocity().y));
+			System.out.println("right");
+		}
+		if(!(k.right) && !(k.left))
 		{
 			if(Math.abs(body2.getLinearVelocity().x) > 0.005)
 			{
@@ -256,9 +267,9 @@ public class Game extends SimulationFrame {
 		g.fillRect(-w / 2, -h / 2, w, h);
 		
 
-		g.translate(-camera, 0);
+		g.translate(-camera, -body2.getTransform().getTranslationY() * 45);
 		super.render(g, elapsedTime);
-		g.translate(camera, 0);
+		g.translate(camera, body2.getTransform().getTranslationY() * 45);
 		g.scale(1, -1);
 		g.setColor(Color.BLACK);
 		g.drawString("Score: " + score, -400, -290);
@@ -288,7 +299,7 @@ public class Game extends SimulationFrame {
 		tl = new TextureLoader();
 		addTextures();
 		Scanner s = new Scanner(System.in);
-		lev = Level.readFromFile(new File(s.nextLine()));
+		lev = Level.readFromFile(new File("\\\\storage-1\\EhresmanS\\HORNETAY000\\workpace\\wow2\\level.hl"));
 		s.close();
 		Game simulation = new Game();
 		//simulation.setIconImage(tl.textureFromName("player"));
