@@ -2,7 +2,9 @@ package hourEngine.core;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.File;
 import java.util.List;
+import java.util.Scanner;
 
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
@@ -15,6 +17,8 @@ import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
 
 import hourEngine.prefabs.Wall;
+import hourEngine.prefabs.level.Slant;
+import hourEngine.prefabs.level.Square;
 
 public class Game extends SimulationFrame {
 	/** The serial version id */
@@ -123,7 +127,6 @@ public class Game extends SimulationFrame {
 	    	c = new Contacts();
 	    }
 	    world.addListener(c);
-	    
 	    body2 = new Entity("player");
 	    //BodyFixture f = new BodyFixture(Geometry.createRectangle(2,2));
 	    BodyFixture f = new BodyFixture(Geometry.createCircle(0.45));
@@ -131,6 +134,7 @@ public class Game extends SimulationFrame {
 	    f.setRestitution(0);
 	    body2.setTextureName("player");
 	    body2.addFixture(f);
+	    body2.translate(3, 0);
 	    body2.setLinearVelocity(new Vector2(0.0, 0.0));
 	    body2.setAngularVelocity(0.0);
 	    body2.setMass(MassType.FIXED_ANGULAR_VELOCITY);
@@ -151,7 +155,9 @@ public class Game extends SimulationFrame {
 	    fuel.setMass(new Mass(new Vector2(0,0), 0, 0.0000001));
 	    fuel.setAutoSleepingEnabled(false);
 	    world.addBody(fuel);
-	    
+	    //Square test = new Square(lev.tilesets.get(1).tiles.get(0));
+	    Slant test2 = new Slant(lev.tilesets.get(1).tiles.get(1));
+	    world.addBody(test2);
 //		SimulationBody wallb = new SimulationBody(Color.green);
 //		wallb.addFixture(Geometry.createRectangle(30, 0.2));
 //		wallb.translate(0, -6.6);
@@ -226,8 +232,7 @@ public class Game extends SimulationFrame {
 		{
 			if(Math.abs(body2.getLinearVelocity().x) > 0.005)
 			{
-				System.out.println(elapsedTime * 1.1 * 350);
-				body2.setLinearVelocity((body2.getLinearVelocity().x/(1.1*elapsedTime*400)),body2.getLinearVelocity().y);
+				body2.setLinearVelocity((body2.getLinearVelocity().x/(1.1)),body2.getLinearVelocity().y);
 			}
 			else
 			{
@@ -261,20 +266,7 @@ public class Game extends SimulationFrame {
 		g.scale(1,  -1);
 		g.rotate(Math.toRadians(-k.count*90), 0, 254);
 		g.drawImage(tl.textureFromName("arrow"), -16, 270, 32, -32, null);
-		
-		//g.setBackground(Color.BLACK);
 	}
-	
-	/**
-	 * Converts from screen space to world space.
-	 * @param point the screen space point
-	 * @return {@link Vector2}
-	 */
-//	private Vector2 toWorldCoordinates(Point point) {
-//		double x =  (point.getX() - this.canvas.getWidth() / 2.0) / this.scale;
-//		double y = -(point.getY() - this.canvas.getHeight() / 2.0) / this.scale;
-//		return new Vector2(x, y);
-//	}
 	
 	public static void addTextures()
 	{
@@ -286,7 +278,7 @@ public class Game extends SimulationFrame {
 		tl.addMap("/textures/arrow.png", "arrow");
 		tl.loadTextures();
 	}
-	
+	static Level lev;
 	/**
 	 * Entry point for the example application.
 	 * @param args command line arguments
@@ -295,6 +287,9 @@ public class Game extends SimulationFrame {
 	{
 		tl = new TextureLoader();
 		addTextures();
+		Scanner s = new Scanner(System.in);
+		lev = Level.readFromFile(new File(s.nextLine()));
+		s.close();
 		Game simulation = new Game();
 		//simulation.setIconImage(tl.textureFromName("player"));
 		simulation.run();

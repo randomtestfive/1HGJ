@@ -132,7 +132,7 @@ public abstract class SimulationFrame extends JFrame {
 			@Override
 			public String getTarget() {
 				// TODO Auto-generated method stub
-				return null;
+				return s;
 			}
 
 			@Override

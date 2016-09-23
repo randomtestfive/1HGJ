@@ -25,28 +25,27 @@ public class Listeners
 		@Override
 		public void keyPressed(KeyEvent arg0)
 		{
-			if(arg0.getKeyCode() == KeyEvent.VK_SPACE)
-			on = true;
-			// TODO Auto-generated method stub
-			
+			if(arg0.getKeyCode() == KeyEvent.VK_W)
+			{
+				on = true;
+				count = 0;
+			}
+			if(arg0.getKeyCode() == KeyEvent.VK_D)
+			{
+				on = true;
+				count = 1;
+			}
+			if(arg0.getKeyCode() == KeyEvent.VK_A)
+			{
+				on = true;
+				count = 3;
+			}
 		}
 
 		@Override
 		public void keyReleased(KeyEvent arg0)
 		{
-			if(arg0.getKeyCode() == KeyEvent.VK_SPACE)
-			{
-				on = false;
-				count++;
-				if(count == 2)
-				{
-					count++;
-				}
-				if(count > 3)
-				{
-					count = 0;
-				}
-			}
+			on = false;
 		}
 
 		@Override
