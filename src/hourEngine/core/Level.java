@@ -11,6 +11,10 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.dyn4j.dynamics.World;
+
+import hourEngine.prefabs.level.Square;
+
 public class Level
 {
 	public int xSize;
@@ -23,6 +27,26 @@ public class Level
 	{
 		xSize = x;
 		ySize = y;
+	}
+	
+	public World addWorld(World in)
+	{
+		for(int x = 0; x < xSize; x++)
+		{
+			for(int y = 0; y < ySize; y++)
+			{
+				if(getCollide(x, y)!=0)
+				{
+					if(getCollide(x,y)==1)
+					{
+						Square tmp = new Square(tilesets.get(getTileset(x,y)).tiles.get(0));
+						tmp.translate(x, -y);
+						in.addBody(tmp);
+					}
+				}
+			}
+		}
+		return in;
 	}
 	
 	public void setCollide(int x, int y, int val)

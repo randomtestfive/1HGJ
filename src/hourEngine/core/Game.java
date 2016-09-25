@@ -128,6 +128,7 @@ public class Game extends SimulationFrame {
 	    	c = new Contacts();
 	    }
 	    world.addListener(c);
+	    lev.addWorld(world);
 	    body2 = new Entity("player");
 	    //BodyFixture f = new BodyFixture(Geometry.createRectangle(2,2));
 	    BodyFixture f = new BodyFixture(Geometry.createCircle(0.45));
@@ -161,8 +162,8 @@ public class Game extends SimulationFrame {
 	    Slant test2 = new Slant(lev.tilesets.get(1).tiles.get(1));
 	    sq.translate(-5, 0);
 	    test2.translate(0,-2);
-	    world.addBody(test2);
-	    world.addBody(sq);
+	    //world.addBody(test2);
+	    //world.addBody(sq);
 	    //world.addBody(new Square(lev.tilesets.get(1).tiles.get(0)));
 //		SimulationBody wallb = new SimulationBody(Color.green);
 //		wallb.addFixture(Geometry.createRectangle(30, 0.2));
@@ -172,17 +173,17 @@ public class Game extends SimulationFrame {
 	    Wall wallb = new Wall(0, -6.6, 30, 0.2, Color.green);
 	    world.addBody(wallb);
 		
-		Wall wallr = new Wall(5, 0, 0.2, 10);
-		world.addBody(wallr);
-		
-		Wall plat = new Wall(-3, -3, 5, 0.2);
-		world.addBody(plat);
-		
-		Wall plat2 = new Wall(4, 2, 2, 0.2);
-		world.addBody(plat2);
-		
-		Wall owalll = new Wall(-9, 0, 0.2, 40);
-		world.addBody(owalll);
+//		Wall wallr = new Wall(5, 0, 0.2, 10);
+//		world.addBody(wallr);
+//		
+//		Wall plat = new Wall(-3, -3, 5, 0.2);
+//		world.addBody(plat);
+//		
+//		Wall plat2 = new Wall(4, 2, 2, 0.2);
+//		world.addBody(plat2);
+//		
+//		Wall owalll = new Wall(-9, 0, 0.2, 40);
+//		world.addBody(owalll);
 		
 //		Wall owallr = new Wall(9, 0, 0.2, 40);
 //		world.addBody(owallr);
@@ -222,13 +223,14 @@ public class Game extends SimulationFrame {
 				grounded = true;
 			}
 		}
-		if(grounded && (k.up && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)))
+		System.out.println(grounded);
+		if(grounded && (k.up))
 		{
-			body2.setLinearVelocity(new Vector2(body2.getLinearVelocity().x, 5));
+			body2.setLinearVelocity(new Vector2(body2.getLinearVelocity().x, 2000 * elapsedTime));
 		}
 		else if(k.up)
 		{
-			body2.applyForce(new Force(new Vector2(0, 0.3)));
+			body2.applyForce(new Force(new Vector2(0, 50 * elapsedTime)));
 		}
 		if(k.left && body2.getChangeInPosition().x > -0.2)
 		{
@@ -299,7 +301,7 @@ public class Game extends SimulationFrame {
 		tl = new TextureLoader();
 		addTextures();
 		Scanner s = new Scanner(System.in);
-		lev = Level.readFromFile(new File("\\\\storage-1\\EhresmanS\\HORNETAY000\\workpace\\wow2\\level.hl"));
+		lev = Level.readFromFile(new File("dir"));
 		s.close();
 		Game simulation = new Game();
 		//simulation.setIconImage(tl.textureFromName("player"));
