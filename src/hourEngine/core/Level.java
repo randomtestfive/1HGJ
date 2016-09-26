@@ -39,8 +39,7 @@ public class Level
 				{
 					if(getCollide(x,y)==1)
 					{
-						Square tmp = new Square(tilesets.get(getTileset(x,y)).tiles.get(0));
-						tmp.translate(x, -y);
+						Square tmp = new Square(tilesets.get(getTileset(x,y)).tiles.get(0), x, -y);
 						in.addBody(tmp);
 					}
 				}

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Geometry;
+import org.dyn4j.geometry.Link;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Vector2;
@@ -16,16 +17,24 @@ import hourEngine.core.SimulationBody;
 
 public class Square extends SimulationBody
 {
+	private int x;
+	private int y;
 	private BufferedImage b;
-	public Square(BufferedImage bi)
+	public Square(BufferedImage bi, int x, int y)
 	{
 		b = bi;
-		addFixture(Geometry.createRectangle(1,1));
-//		for (int i = 1; i < 10; i++)
-//		{
-//			Rectangle f = Geometry.createRectangle(1, 1);
-//			addFixture(f);
-//		}
+		//addFixture(Geometry.createRectangle(1,1));
+		Vector2[] points = new Vector2[4];
+		points[0] = new Vector2(x,y);
+		points[1] = new Vector2(x,y-1);
+		points[2] = new Vector2(x+1,y-1);
+		points[3] = new Vector2(x+1,y);
+		this.x = x; 
+		this.y = y;
+		for(Link l : Geometry.createLinks(points, true))
+		{
+			this.addFixture(l);
+		}
 		setMass(MassType.INFINITE);
 	}
 	
@@ -39,10 +48,12 @@ public class Square extends SimulationBody
 		lt.rotate(this.transform.getRotation());
 
 		g.transform(lt);
-		for (BodyFixture fixture : this.fixtures)
-		{
-			this.renderFixture(g, scale, fixture, color);
-		}
+//		for (BodyFixture fixture : this.fixtures)
+//		{
+//			this.renderFixture(g, scale, fixture, color);
+//		}
+		g.setColor(Color.red);
+		g.fillRect((int)Math.ceil((x * scale)), (int)Math.ceil(y * scale - scale), (int)Math.ceil(scale +1), (int)Math.ceil(scale +1));
 		g.setTransform(ot);
 	}
 

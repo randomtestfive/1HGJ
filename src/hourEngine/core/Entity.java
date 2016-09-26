@@ -86,11 +86,11 @@ public class Entity extends SimulationBody
 //			    bGr.drawImage(img, 0, 0, null);
 //			    bGr.dispose();
 					// lets us an image instead
-				if(this.getLinearVelocity().x > 0.1)
+				if(this.getLinearVelocity().x > 0.001)
 				{
 					right = true;
 				}
-				if(this.getLinearVelocity().x < -0.1)
+				if(this.getLinearVelocity().x < -0.001)
 				{
 					right = false;
 				}

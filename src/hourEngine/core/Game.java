@@ -158,7 +158,7 @@ public class Game extends SimulationFrame {
 	    fuel.setAutoSleepingEnabled(false);
 	    world.addBody(fuel);
 	    //Square test = new Square(lev.tilesets.get(1).tiles.get(0));
-	    Square sq = new Square(lev.tilesets.get(1).tiles.get(0));
+	    Square sq = new Square(lev.tilesets.get(1).tiles.get(0), 0, 0);
 	    Slant test2 = new Slant(lev.tilesets.get(1).tiles.get(1));
 	    sq.translate(-5, 0);
 	    test2.translate(0,-2);
@@ -301,7 +301,9 @@ public class Game extends SimulationFrame {
 		tl = new TextureLoader();
 		addTextures();
 		Scanner s = new Scanner(System.in);
-		lev = Level.readFromFile(new File("dir"));
+		String test = tl.getClass().getClassLoader().getResource("wow2/level.hl").getPath();
+		System.out.println(test);
+		lev = Level.readFromFile(new File(test));
 		s.close();
 		Game simulation = new Game();
 		//simulation.setIconImage(tl.textureFromName("player"));
