@@ -226,7 +226,7 @@ public class Game extends SimulationFrame {
 		System.out.println(grounded);
 		if(grounded && (k.up))
 		{
-			body2.setLinearVelocity(new Vector2(body2.getLinearVelocity().x, 2000 * elapsedTime));
+			body2.setLinearVelocity(new Vector2(body2.getLinearVelocity().x, 2500 * elapsedTime));
 		}
 		else if(k.up)
 		{
